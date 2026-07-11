@@ -19,7 +19,7 @@ x_b = torch.tensor([[0.0],[1.0]])
 u_b = torch.tensor([[0.],[0.]])
 
 # Training loop:
-for step in range(3000):
+for step in range(2000):
     u = model (x)
 
     # derivatives
@@ -50,3 +50,15 @@ with torch.no_grad():
 # The objective of course is served. Users are encouraged to do further exploration by themselves.
 # If I find something really great for PINN, i will let u know.
 # Thank you very much. Have a wonderful time
+
+# Additional: comparision with exact solution via graphical representation
+x = torch.linspace(0,1,100)
+y1 = x*(1-x)/2
+y2 = model(x.reshape(-1,1)).detach().numpy()
+import matplotlib.pyplot as plt
+plt.plot(x,y1,label='exact')
+plt.plot(x,y2,label='PINN')
+plt.xlabel('x')
+plt.ylabel('u(x)')
+plt.legend()
+plt.show()
